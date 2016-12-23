@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MyDesign" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="MyDesignContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="MyDesign.User" />
+    <EntitySet Name="UserLogins" EntityType="MyDesign.UserLogin" />
+    <AssociationSet Name="UserUserLogin" Association="MyDesign.UserUserLogin">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLogin" EntitySet="UserLogins" />
+    </AssociationSet>
+    <EntitySet Name="UserRoles" EntityType="MyDesign.UserRole" />
+    <AssociationSet Name="UserUserRole" Association="MyDesign.UserUserRole">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <EntitySet Name="Projects" EntityType="MyDesign.Project" />
+    <EntitySet Name="Steps" EntityType="MyDesign.Step" />
+    <AssociationSet Name="ProjectStep" Association="MyDesign.ProjectStep">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Step" EntitySet="Steps" />
+    </AssociationSet>
+    <EntitySet Name="StepTemplates" EntityType="MyDesign.StepTemplate" />
+    <AssociationSet Name="StepStepTemplate" Association="MyDesign.StepStepTemplate">
+      <End Role="Step" EntitySet="Steps" />
+      <End Role="StepTemplate" EntitySet="StepTemplates" />
+    </AssociationSet>
+    <EntitySet Name="StepStatusChangeJustifications" EntityType="MyDesign.StepStatusChangeJustification" />
+    <AssociationSet Name="StepChangeJustificationStep" Association="MyDesign.StepChangeJustificationStep">
+      <End Role="StepChangeJustification" EntitySet="StepStatusChangeJustifications" />
+      <End Role="Step" EntitySet="Steps" />
+    </AssociationSet>
+    <AssociationSet Name="UserStepChangeJustification" Association="MyDesign.UserStepChangeJustification">
+      <End Role="User" EntitySet="Users" />
+      <End Role="StepChangeJustification" EntitySet="StepStatusChangeJustifications" />
+    </AssociationSet>
+    <EntitySet Name="StepComments" EntityType="MyDesign.StepComment" />
+    <AssociationSet Name="StepStepComment" Association="MyDesign.StepStepComment">
+      <End Role="Step" EntitySet="Steps" />
+      <End Role="StepComment" EntitySet="StepComments" />
+    </AssociationSet>
+    <AssociationSet Name="UserStepComment" Association="MyDesign.UserStepComment">
+      <End Role="User" EntitySet="Users" />
+      <End Role="StepComment" EntitySet="StepComments" />
+    </AssociationSet>
+    <EntitySet Name="AccessLists" EntityType="MyDesign.AccessList" />
+    <AssociationSet Name="UserAccessList" Association="MyDesign.UserAccessList">
+      <End Role="User" EntitySet="Users" />
+      <End Role="AccessList" EntitySet="AccessLists" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectAccessList" Association="MyDesign.ProjectAccessList">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="AccessList" EntitySet="AccessLists" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="UserType" Type="Int32" Nullable="false" />
+    <Property Name="UserEmail" Type="String" Nullable="false" />
+    <NavigationProperty Name="UserLogins" Relationship="MyDesign.UserUserLogin" FromRole="User" ToRole="UserLogin" />
+    <NavigationProperty Name="UserRoles" Relationship="MyDesign.UserUserRole" FromRole="User" ToRole="UserRole" />
+    <NavigationProperty Name="StepChangeJustifications" Relationship="MyDesign.UserStepChangeJustification" FromRole="User" ToRole="StepChangeJustification" />
+    <NavigationProperty Name="StepComments" Relationship="MyDesign.UserStepComment" FromRole="User" ToRole="StepComment" />
+    <NavigationProperty Name="AccessLists" Relationship="MyDesign.UserAccessList" FromRole="User" ToRole="AccessList" />
+  </EntityType>
+  <EntityType Name="UserLogin">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MyDesign.UserUserLogin" FromRole="UserLogin" ToRole="User" />
+  </EntityType>
+  <Association Name="UserUserLogin">
+    <End Type="MyDesign.User" Role="User" Multiplicity="1" />
+    <End Type="MyDesign.UserLogin" Role="UserLogin" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="UserLogin">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleType" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MyDesign.UserUserRole" FromRole="UserRole" ToRole="User" />
+  </EntityType>
+  <Association Name="UserUserRole">
+    <End Type="MyDesign.User" Role="User" Multiplicity="*" />
+    <End Type="MyDesign.UserRole" Role="UserRole" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjId" />
+    </Key>
+    <Property Name="ProjId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjName" Type="String" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" />
+    <Property Name="COEstimate" Type="DateTime" Nullable="false" />
+    <Property Name="CCEstimate" Type="String" Nullable="false" />
+    <Property Name="CActual" Type="DateTime" Nullable="false" />
+    <Property Name="ProgressPercent" Type="String" Nullable="false" />
+    <Property Name="ProjStatus" Type="String" Nullable="false" />
+    <NavigationProperty Name="Steps" Relationship="MyDesign.ProjectStep" FromRole="Project" ToRole="Step" cg:SetterAccess="Public" />
+    <NavigationProperty Name="AccessLists" Relationship="MyDesign.ProjectAccessList" FromRole="Project" ToRole="AccessList" />
+  </EntityType>
+  <EntityType Name="Step">
+    <Key>
+      <PropertyRef Name="StepId" />
+    </Key>
+    <Property Name="StepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjId" Type="Int32" Nullable="false" />
+    <Property Name="EStart" Type="DateTime" Nullable="false" />
+    <Property Name="EEnd" Type="DateTime" Nullable="false" />
+    <Property Name="AStart" Type="DateTime" Nullable="false" />
+    <Property Name="AEnd" Type="DateTime" Nullable="false" />
+    <Property Name="StepStatus" Type="String" Nullable="false" />
+    <NavigationProperty Name="Project" Relationship="MyDesign.ProjectStep" FromRole="Step" ToRole="Project" />
+    <NavigationProperty Name="StepTemplates" Relationship="MyDesign.StepStepTemplate" FromRole="Step" ToRole="StepTemplate" />
+    <NavigationProperty Name="StepChangeJustification" Relationship="MyDesign.StepChangeJustificationStep" FromRole="Step" ToRole="StepChangeJustification" />
+    <NavigationProperty Name="StepComments" Relationship="MyDesign.StepStepComment" FromRole="Step" ToRole="StepComment" />
+    <Property Name="StepType" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ProjectStep">
+    <End Type="MyDesign.Project" Role="Project" Multiplicity="1" />
+    <End Type="MyDesign.Step" Role="Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjId" />
+      </Principal>
+      <Dependent Role="Step">
+        <PropertyRef Name="ProjId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="StepTemplate">
+    <Key>
+      <PropertyRef Name="StepType" />
+    </Key>
+    <Property Name="StepType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StepName" Type="String" Nullable="false" />
+    <Property Name="Enabled" Type="Int32" Nullable="false" />
+    <Property Name="Sequence" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Step" Relationship="MyDesign.StepStepTemplate" FromRole="StepTemplate" ToRole="Step" />
+  </EntityType>
+  <Association Name="StepStepTemplate">
+    <End Type="MyDesign.Step" Role="Step" Multiplicity="*" />
+    <End Type="MyDesign.StepTemplate" Role="StepTemplate" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="StepTemplate">
+        <PropertyRef Name="StepType" />
+      </Principal>
+      <Dependent Role="Step">
+        <PropertyRef Name="StepType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="StepStatusChangeJustification">
+    <Key>
+      <PropertyRef Name="JId" />
+    </Key>
+    <Property Name="JId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StepId" Type="Int32" Nullable="false" />
+    <Property Name="ChangedByUserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Steps" Relationship="MyDesign.StepChangeJustificationStep" FromRole="StepChangeJustification" ToRole="Step" />
+    <NavigationProperty Name="User" Relationship="MyDesign.UserStepChangeJustification" FromRole="StepChangeJustification" ToRole="User" />
+    <Property Name="ChangedAt" Type="DateTime" Nullable="false" />
+    <Property Name="BeforeChange" Type="String" Nullable="false" />
+    <Property Name="AfterChange" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="StepChangeJustificationStep">
+    <End Type="MyDesign.StepStatusChangeJustification" Role="StepChangeJustification" Multiplicity="*" />
+    <End Type="MyDesign.Step" Role="Step" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Step">
+        <PropertyRef Name="StepId" />
+      </Principal>
+      <Dependent Role="StepChangeJustification">
+        <PropertyRef Name="StepId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserStepChangeJustification">
+    <End Type="MyDesign.User" Role="User" Multiplicity="1" />
+    <End Type="MyDesign.StepStatusChangeJustification" Role="StepChangeJustification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="StepChangeJustification">
+        <PropertyRef Name="ChangedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="StepComment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentText" Type="String" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+    <Property Name="EnteredByUserId" Type="Int32" Nullable="false" />
+    <Property Name="EnteredForStepId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Step" Relationship="MyDesign.StepStepComment" FromRole="StepComment" ToRole="Step" />
+    <NavigationProperty Name="User" Relationship="MyDesign.UserStepComment" FromRole="StepComment" ToRole="User" />
+  </EntityType>
+  <Association Name="StepStepComment">
+    <End Type="MyDesign.Step" Role="Step" Multiplicity="1" />
+    <End Type="MyDesign.StepComment" Role="StepComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Step">
+        <PropertyRef Name="StepId" />
+      </Principal>
+      <Dependent Role="StepComment">
+        <PropertyRef Name="EnteredForStepId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserStepComment">
+    <End Type="MyDesign.User" Role="User" Multiplicity="1" />
+    <End Type="MyDesign.StepComment" Role="StepComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="StepComment">
+        <PropertyRef Name="EnteredByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AccessList">
+    <Key>
+      <PropertyRef Name="ALId" />
+    </Key>
+    <Property Name="ALId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MyDesign.UserAccessList" FromRole="AccessList" ToRole="User" />
+    <NavigationProperty Name="Project" Relationship="MyDesign.ProjectAccessList" FromRole="AccessList" ToRole="Project" />
+  </EntityType>
+  <Association Name="UserAccessList">
+    <End Type="MyDesign.User" Role="User" Multiplicity="1" />
+    <End Type="MyDesign.AccessList" Role="AccessList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AccessList">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectAccessList">
+    <End Type="MyDesign.Project" Role="Project" Multiplicity="1" />
+    <End Type="MyDesign.AccessList" Role="AccessList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjId" />
+      </Principal>
+      <Dependent Role="AccessList">
+        <PropertyRef Name="ProjId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

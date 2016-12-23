@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dlakshmaDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AccessList">
+    <Key>
+      <PropertyRef Name="ALId" />
+    </Key>
+    <Property Name="ALId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Project" Relationship="Self.FK_ProjectAccessList" FromRole="AccessLists" ToRole="Projects" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserAccessList" FromRole="AccessLists" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjId" />
+    </Key>
+    <Property Name="ProjId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="COEstimate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CCEstimate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CActual" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProgressPercent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProjStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AccessLists" Relationship="Self.FK_ProjectAccessList" FromRole="Projects" ToRole="AccessLists" />
+    <NavigationProperty Name="Steps" Relationship="Self.FK_ProjectStep" FromRole="Projects" ToRole="Steps" />
+  </EntityType>
+  <EntityType Name="StepComment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EnteredByUserId" Type="Int32" Nullable="false" />
+    <Property Name="EnteredForStepId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Step" Relationship="Self.FK_StepStepComment" FromRole="StepComments" ToRole="Steps" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserStepComment" FromRole="StepComments" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Step">
+    <Key>
+      <PropertyRef Name="StepId" />
+    </Key>
+    <Property Name="StepId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjId" Type="Int32" Nullable="false" />
+    <Property Name="EStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="AEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="StepStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StepType" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Project" Relationship="Self.FK_ProjectStep" FromRole="Steps" ToRole="Projects" />
+    <NavigationProperty Name="StepComments" Relationship="Self.FK_StepStepComment" FromRole="Steps" ToRole="StepComments" />
+    <NavigationProperty Name="StepStatusChangeJustifications" Relationship="Self.FK_StepChangeJustificationStep" FromRole="Steps" ToRole="StepStatusChangeJustifications" />
+    <NavigationProperty Name="StepTemplate" Relationship="Self.FK_StepStepTemplate" FromRole="Steps" ToRole="StepTemplates" />
+  </EntityType>
+  <EntityType Name="StepStatusChangeJustification">
+    <Key>
+      <PropertyRef Name="JId" />
+    </Key>
+    <Property Name="JId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StepId" Type="Int32" Nullable="false" />
+    <Property Name="ChangedByUserId" Type="Int32" Nullable="false" />
+    <Property Name="ChangedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BeforeChange" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AfterChange" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Step" Relationship="Self.FK_StepChangeJustificationStep" FromRole="StepStatusChangeJustifications" ToRole="Steps" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserStepChangeJustification" FromRole="StepStatusChangeJustifications" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="StepTemplate">
+    <Key>
+      <PropertyRef Name="StepType" />
+    </Key>
+    <Property Name="StepType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StepName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Enabled" Type="Int32" Nullable="false" />
+    <Property Name="Sequence" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Steps" Relationship="Self.FK_StepStepTemplate" FromRole="StepTemplates" ToRole="Steps" />
+  </EntityType>
+  <EntityType Name="UserLogin">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UserUserLogin" FromRole="UserLogins" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_UserUserRole" FromRole="UserRoles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserType" Type="Int32" Nullable="false" />
+    <Property Name="UserEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AccessLists" Relationship="Self.FK_UserAccessList" FromRole="Users" ToRole="AccessLists" />
+    <NavigationProperty Name="StepComments" Relationship="Self.FK_UserStepComment" FromRole="Users" ToRole="StepComments" />
+    <NavigationProperty Name="StepStatusChangeJustifications" Relationship="Self.FK_UserStepChangeJustification" FromRole="Users" ToRole="StepStatusChangeJustifications" />
+    <NavigationProperty Name="UserLogin" Relationship="Self.FK_UserUserLogin" FromRole="Users" ToRole="UserLogins" />
+    <NavigationProperty Name="UserRole" Relationship="Self.FK_UserUserRole" FromRole="Users" ToRole="UserRoles" />
+  </EntityType>
+  <Association Name="FK_ProjectAccessList">
+    <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+    <End Role="AccessLists" Type="Self.AccessList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjId" />
+      </Principal>
+      <Dependent Role="AccessLists">
+        <PropertyRef Name="ProjId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAccessList">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="AccessLists" Type="Self.AccessList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AccessLists">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectStep">
+    <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+    <End Role="Steps" Type="Self.Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ProjId" />
+      </Principal>
+      <Dependent Role="Steps">
+        <PropertyRef Name="ProjId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StepStepComment">
+    <End Role="Steps" Type="Self.Step" Multiplicity="1" />
+    <End Role="StepComments" Type="Self.StepComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Steps">
+        <PropertyRef Name="StepId" />
+      </Principal>
+      <Dependent Role="StepComments">
+        <PropertyRef Name="EnteredForStepId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserStepComment">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="StepComments" Type="Self.StepComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="StepComments">
+        <PropertyRef Name="EnteredByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StepChangeJustificationStep">
+    <End Role="Steps" Type="Self.Step" Multiplicity="1" />
+    <End Role="StepStatusChangeJustifications" Type="Self.StepStatusChangeJustification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Steps">
+        <PropertyRef Name="StepId" />
+      </Principal>
+      <Dependent Role="StepStatusChangeJustifications">
+        <PropertyRef Name="StepId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StepStepTemplate">
+    <End Role="StepTemplates" Type="Self.StepTemplate" Multiplicity="1" />
+    <End Role="Steps" Type="Self.Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StepTemplates">
+        <PropertyRef Name="StepType" />
+      </Principal>
+      <Dependent Role="Steps">
+        <PropertyRef Name="StepType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserStepChangeJustification">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="StepStatusChangeJustifications" Type="Self.StepStatusChangeJustification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="StepStatusChangeJustifications">
+        <PropertyRef Name="ChangedByUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUserLogin">
+    <End Role="UserLogins" Type="Self.UserLogin" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="UserLogins">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUserRole">
+    <End Role="UserRoles" Type="Self.UserRole" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="UserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dlakshmaDataBaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AccessLists" EntityType="Self.AccessList" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
+    <EntitySet Name="StepComments" EntityType="Self.StepComment" />
+    <EntitySet Name="Steps" EntityType="Self.Step" />
+    <EntitySet Name="StepStatusChangeJustifications" EntityType="Self.StepStatusChangeJustification" />
+    <EntitySet Name="StepTemplates" EntityType="Self.StepTemplate" />
+    <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_ProjectAccessList" Association="Self.FK_ProjectAccessList">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="AccessLists" EntitySet="AccessLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAccessList" Association="Self.FK_UserAccessList">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="AccessLists" EntitySet="AccessLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectStep" Association="Self.FK_ProjectStep">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="Steps" EntitySet="Steps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StepStepComment" Association="Self.FK_StepStepComment">
+      <End Role="Steps" EntitySet="Steps" />
+      <End Role="StepComments" EntitySet="StepComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserStepComment" Association="Self.FK_UserStepComment">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="StepComments" EntitySet="StepComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StepChangeJustificationStep" Association="Self.FK_StepChangeJustificationStep">
+      <End Role="Steps" EntitySet="Steps" />
+      <End Role="StepStatusChangeJustifications" EntitySet="StepStatusChangeJustifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StepStepTemplate" Association="Self.FK_StepStepTemplate">
+      <End Role="StepTemplates" EntitySet="StepTemplates" />
+      <End Role="Steps" EntitySet="Steps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserStepChangeJustification" Association="Self.FK_UserStepChangeJustification">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="StepStatusChangeJustifications" EntitySet="StepStatusChangeJustifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUserLogin" Association="Self.FK_UserUserLogin">
+      <End Role="UserLogins" EntitySet="UserLogins" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUserRole" Association="Self.FK_UserUserRole">
+      <End Role="UserRoles" EntitySet="UserRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

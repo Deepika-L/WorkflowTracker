@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="66a2301d4789428a8d35fcb849fc81a1" Name="Diagram1">
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.AccessList" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.Project" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.StepComment" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.Step" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.StepStatusChangeJustification" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.StepTemplate" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.UserLogin" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.UserRole" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dlakshmaDataBaseModel.User" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_ProjectAccessList" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_UserAccessList" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_ProjectStep" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_StepStepComment" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_UserStepComment" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_StepChangeJustificationStep" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_StepStepTemplate" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_UserStepChangeJustification" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_UserUserLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="dlakshmaDataBaseModel.FK_UserUserRole" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

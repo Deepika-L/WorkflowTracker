@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyDesignStoreContainer" CdmEntityContainer="MyDesignContainer">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLogins">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.UserLogin)">
+        <MappingFragment StoreEntitySet="UserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.UserRole)">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleType" ColumnName="RoleType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.Project)">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+          <ScalarProperty Name="ProjName" ColumnName="ProjName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="COEstimate" ColumnName="COEstimate" />
+          <ScalarProperty Name="CCEstimate" ColumnName="CCEstimate" />
+          <ScalarProperty Name="CActual" ColumnName="CActual" />
+          <ScalarProperty Name="ProgressPercent" ColumnName="ProgressPercent" />
+          <ScalarProperty Name="ProjStatus" ColumnName="ProjStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Steps">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.Step)">
+        <MappingFragment StoreEntitySet="Steps">
+          <ScalarProperty Name="StepId" ColumnName="StepId" />
+          <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+          <ScalarProperty Name="EStart" ColumnName="EStart" />
+          <ScalarProperty Name="EEnd" ColumnName="EEnd" />
+          <ScalarProperty Name="AStart" ColumnName="AStart" />
+          <ScalarProperty Name="AEnd" ColumnName="AEnd" />
+          <ScalarProperty Name="StepStatus" ColumnName="StepStatus" />
+          <ScalarProperty Name="StepType" ColumnName="StepType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StepTemplates">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.StepTemplate)">
+        <MappingFragment StoreEntitySet="StepTemplates">
+          <ScalarProperty Name="StepType" ColumnName="StepType" />
+          <ScalarProperty Name="StepName" ColumnName="StepName" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StepStatusChangeJustifications">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.StepStatusChangeJustification)">
+        <MappingFragment StoreEntitySet="StepStatusChangeJustifications">
+          <ScalarProperty Name="JId" ColumnName="JId" />
+          <ScalarProperty Name="StepId" ColumnName="StepId" />
+          <ScalarProperty Name="ChangedByUserId" ColumnName="ChangedByUserId" />
+          <ScalarProperty Name="ChangedAt" ColumnName="ChangedAt" />
+          <ScalarProperty Name="BeforeChange" ColumnName="BeforeChange" />
+          <ScalarProperty Name="AfterChange" ColumnName="AfterChange" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StepComments">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.StepComment)">
+        <MappingFragment StoreEntitySet="StepComments">
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="EnteredByUserId" ColumnName="EnteredByUserId" />
+          <ScalarProperty Name="EnteredForStepId" ColumnName="EnteredForStepId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccessLists">
+      <EntityTypeMapping TypeName="IsTypeOf(MyDesign.AccessList)">
+        <MappingFragment StoreEntitySet="AccessLists">
+          <ScalarProperty Name="ALId" ColumnName="ALId" />
+          <ScalarProperty Name="ProjId" ColumnName="ProjId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

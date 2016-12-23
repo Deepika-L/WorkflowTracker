@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac06793a3d654deb8555fa0509c9cc51" Name="Diagram1" >
+        <EntityTypeShape EntityType="MyDesign.User" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="MyDesign.UserLogin" Width="1.5" PointX="2.5" PointY="0.5" />
+        <AssociationConnector Association="MyDesign.UserUserLogin" ></AssociationConnector>
+        <EntityTypeShape EntityType="MyDesign.UserRole" Width="1.5" PointX="0.5" PointY="3.625" />
+        <AssociationConnector Association="MyDesign.UserUserRole" />
+        <EntityTypeShape EntityType="MyDesign.Project" Width="1.5" PointX="4.75" PointY="0.5" />
+        <EntityTypeShape EntityType="MyDesign.Step" Width="1.5" PointX="6.75" PointY="0.5" />
+        <AssociationConnector Association="MyDesign.ProjectStep" />
+        <EntityTypeShape EntityType="MyDesign.StepTemplate" Width="1.5" PointX="8.75" PointY="0.5" />
+        <AssociationConnector Association="MyDesign.StepStepTemplate" />
+        <EntityTypeShape EntityType="MyDesign.StepStatusChangeJustification" Width="1.5" PointX="6.75" PointY="4.125" />
+        <AssociationConnector Association="MyDesign.StepChangeJustificationStep" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="MyDesign.UserStepChangeJustification" ManuallyRouted="true" >
+          <ConnectorPoint PointX="2" PointY="3.2348068721198651" />
+          <ConnectorPoint PointX="2.375" PointY="3.4310359090544869" />
+          <ConnectorPoint PointX="2.375" PointY="3.5169734090544869" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="3.5169734090544864" />
+          <ConnectorPoint PointX="2.7708333333333335" PointY="3.5169734090544869" />
+          <ConnectorPoint PointX="3.8086400757211534" PointY="3.5169734090544864" />
+          <ConnectorPoint PointX="3.9753067423878203" PointY="3.5169734090544869" />
+          <ConnectorPoint PointX="6.328125" PointY="3.5169734090544869" />
+          <ConnectorPoint PointX="6.328125" PointY="5.4035953776041659" />
+          <ConnectorPoint PointX="6.75" PointY="5.4035953776041659" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="MyDesign.StepComment" Width="1.5" PointX="4.375" PointY="4" />
+        <AssociationConnector Association="MyDesign.StepStepComment" />
+        <AssociationConnector Association="MyDesign.UserStepComment" />
+        <EntityTypeShape EntityType="MyDesign.AccessList" Width="1.5" PointX="0.625" PointY="5.75" />
+        <AssociationConnector Association="MyDesign.UserAccessList" />
+        <AssociationConnector Association="MyDesign.ProjectAccessList" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
